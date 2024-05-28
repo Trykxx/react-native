@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet } from "react-native";
-import Bouton from "../components/Bouton.jsx";
-import InputAvecError from "../components/inputAvecError.jsx";
-import TextArea from "../components/TextArea.jsx";
+import Bouton from "../../components/Bouton.jsx";
+import InputAvecError from "../../components/inputAvecError.jsx";
+import TextArea from "../../components/TextArea.jsx";
+import { Link } from "expo-router";
+
 
 export default function contact() {
   const [emailInput, setEmailInput] = useState("");
@@ -15,6 +17,7 @@ export default function contact() {
     setEmailInput(text);
     setEmailError("");
   }
+
   function changeMessage(text) {
     setMessageInput(text);
     setMessageError("");
@@ -33,6 +36,7 @@ export default function contact() {
 
   return (
     <View style={style.formulaire}>
+      <Link href={'/contact/information'}>Information</Link>
       {/* <TextInput
         style={style.container}
         placeholder="Entrez votre email..."
@@ -59,10 +63,10 @@ export default function contact() {
       {/* <InputAvecError placeholder='Message' action={changeMessage} keyboardType ='default' error={messageError} ></InputAvecError> */}
 
       <TextArea
-      placeholder="Message"
-      nombreLignes="5"
-      action={changeMessage}
-      error={messageError}
+        placeholder="Message"
+        nombreLignes="5"
+        action={changeMessage}
+        error={messageError}
       ></TextArea>
 
       <Bouton label="Envoyer" action={submit} />

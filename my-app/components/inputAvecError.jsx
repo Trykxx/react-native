@@ -4,23 +4,26 @@ const InputAvecError = ({ placeholder, action, error, type }) => {
   return (
     <View>
       <TextInput
-      style={inputStyle.input}
+      style={style.input}
       placeholder={placeholder}
       onChangeText={action}
       keyboardType={type}
       ></TextInput>
-      <Text>{error}</Text>
+      <Text style={style.error}>{error}</Text>
     </View>
   );
 };
 
-const inputStyle = StyleSheet.create({
+const style = StyleSheet.create({
   input: {
     backgroundColor: "grey",
     color: "white",
     padding: 10,
     margin: 5,
   },
+  error:{
+    color:'red'
+  }
 });
 
 export default InputAvecError

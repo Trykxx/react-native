@@ -13,6 +13,7 @@ const buttonStyle = StyleSheet.create({
         backgroundColor:'royalblue',
         padding:10,
         borderRadius:5,
+        margin:'auto'
     },
     label:{
         color:'white'
