@@ -1,49 +1,53 @@
-import { View, Text } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react"
+import {View , Text} from "react-native"
 import InputAvecError from "../../components/inputAvecError";
-import Bouton from "../../components/Bouton";
+import Bouton from "../../components/Bouton.jsx";
+import { Link } from "expo-router";
+import PassWordInput from "../../components/PasswordInput.jsx";
+import { userContext } from "../_layout.jsx";
 
-export default function index() {
-  const [emailInput, setEmailInput] = useState("");
-  const [emailError, setEmailError] = useState("");
+export default function Connexion(){
+  const {user, setUser}=useContext(userContext)
+    const[userEmail,setUserEmail]=useState("")
+    const[userEmailError,setUserEmailError]=useState("")
 
-  const [passwordInput, setPasswordInput] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-
-  function handleEmail(value) {
-    setEmailInput(value);
-    setEmailError("");
-  }
-
-  function handlePassword(value) {
-    setPasswordInput(value);
-    setPasswordError("");
-  }
-
-  async function submit() {
-    if (!emailInput.includes("@") || passwordInput.length < 6) {
-      setEmailError(!emailInput.includes("@") ? "Email incorrect" : setPasswordError(passwordInput.length < 6 ? "Mot de passe trop court" : "")
-    );
-    return;
+    const[passWord,setPassWord]=useState("")
+    const[passWordErr,setPassWordErr]=useState("")
+    function InsertionEmail(text){
+        setUserEmailError("")
+        setUserEmail(text)
+        if(userEmail==""){
+            return setUserEmailError("Email obligatoire")
+        }
+        if(!userEmail.includes('@')){
+            return setUserEmailError("Email invalide")
+        }
     }
-    alert(`Bienvenu : ${emailInput}`);
-  }
+    function InsertionPasseWord(text){
+        setPassWordErr("")
+        setPassWord(text)
+        if(passWord ==""){
+            return setPassWordErr("Mot de passe incorrect")
+        }
+    }
+    function submit(){
+        if(!userEmail.includes('@')){
+            return setUserEmailError("Email invalide")
+        }if(passWord ==""){
+            return setPassWordErr("Mot de passe incorrect")
+        }
+          setUser({email:userEmail})
+    }
 
-  return (
+    return (
     <View>
-      <InputAvecError
-        placeholder={"Email..."}
-        action={handleEmail}
+        <Link href={"/authentification/register"}>Inscription</Link>
+        <InputAvecError placeholder={"Email"} action={InsertionEmail}
         type="email-address"
-        error={emailError}
-      ></InputAvecError>
-      <InputAvecError
-        placeholder={"Mot de passe..."}
-        action={handlePassword}
-        type="password"
-        error={passwordError}
-      ></InputAvecError>
-      <Bouton label={"Connexion"} action={submit}></Bouton>
+        error={userEmailError} ></InputAvecError>
+        <PassWordInput placeholder={"Mot de passe"} action={InsertionPasseWord} error={passWordErr}></PassWordInput>
+        <Bouton label={"Connexion"} action={submit}></Bouton>
     </View>
-  );
+
+    )
 }

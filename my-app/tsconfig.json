@@ -12,5 +12,5 @@
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
     "app/contact/index.jsx"
-, "app/contact/_layout.jsx"  ]
+, "app/contact/_layout.jsx", "app/_layout.jsx"  ]
 }
