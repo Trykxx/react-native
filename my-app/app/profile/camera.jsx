@@ -2,16 +2,27 @@ import { View, Text, Button, StyleSheet } from "react-native";
 import { CameraView, useCameraPermissions } from "expo-camera";
 import React, { useState } from "react";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
-import { Ionicons } from "@expo/vector-icons";
-import { Feather } from "@expo/vector-icons";
+import { Ionicons,Feather } from "@expo/vector-icons";
 import Slider from '@react-native-community/slider';
+import { useRef } from "react";
+import * as MediaLibrary from 'expo-media-library'
 
 export default function camera() {
   const [flash, setFlash] = useState(false);
   const [facing, setFacing] = useState("back");
   const [zoom, setZoom] = useState(0);
+  const cameraRef = useRef()
 
   const [permission, requestPermission] = useCameraPermissions();
+  const [permissionResponse, requestMediaPermission] = MediaLibrary.usePermissions();
+
+  async function prendrePhoto() {
+    const image = await cameraRef.current.takePictureAsync()
+    if (!permissionResponse.granted) {
+      await requestMediaPermission()
+    }
+    const savedImage = await MediaLibrary.createAssetAsync(image.url)
+}
 
   if (!permission) {
     return <Text>Chargement...</Text>;
@@ -36,11 +47,12 @@ export default function camera() {
   function toggleZoom() {
     setZoom(zoom=== 0 ? 1 : 0);
   }
+  
 
   return (
     <View>
-      <CameraView style={style.camera} facing={facing} enableTorch={flash} zoom={zoom}>
-        <Slider minimumValue={0} maximumValue={1} step={0.1} onValueChange={toggleZoom}></Slider>
+      <CameraView style={style.camera} facing={facing} enableTorch={flash} zoom={zoom} ref={cameraRef}>
+        <Slider minimumValue={0} maximumValue={0.5} step={0.001} onValueChange={toggleZoom}></Slider>
         <View style={style.buttons}>
           <FontAwesome6
             name="camera-rotate"
@@ -60,6 +72,7 @@ export default function camera() {
             color="white"
             onPress={toggleZoom}
           />
+          <FontAwesome6 name="camera" size={50} color="green" onPress={prendrePhoto}/>
         </View>
       </CameraView>
     </View>
