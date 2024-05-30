@@ -4,10 +4,10 @@ import InputAvecError from "../../components/inputAvecError";
 import Bouton from "../../components/Bouton.jsx";
 import { Link } from "expo-router";
 import PassWordInput from "../../components/PasswordInput.jsx";
-import { userContext } from "../_layout.jsx";
+import { UserContext } from "../_layout.jsx";
 
 export default function Connexion(){
-  const {user, setUser}=useContext(userContext)
+  const {user, setUser}=useContext(UserContext)
     const[userEmail,setUserEmail]=useState("")
     const[userEmailError,setUserEmailError]=useState("")
 

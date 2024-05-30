@@ -3,13 +3,13 @@ import { Drawer } from 'expo-router/drawer';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import React, { createContext, useState } from 'react';
 
-export const userContext = createContext()
+export const UserContext = createContext()
 
 export default function RootLayout(){
   const [user, setUser] = useState(null)
 
   return (
-    <userContext.Provider value={{user,setUser}}>
+    <UserContext.Provider value={{user,setUser}}>
       <GestureHandlerRootView>
       <Drawer
       screenOptions={{
@@ -32,7 +32,7 @@ export default function RootLayout(){
       </Drawer>
       {/* <Stack.Screen name='index' />
       <Stack.Screen name='contact' /> */}
-    </GestureHandlerRootView></userContext.Provider>
+    </GestureHandlerRootView></UserContext.Provider>
   )
 }
 

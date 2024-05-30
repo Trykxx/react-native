@@ -1,18 +1,13 @@
 import React, { useContext } from 'react'
 import { View, Text } from 'react-native';
 import { UserContext } from "../_layout";
-import { Redirect } from 'expo-router';
+import { Redirect,Link } from 'expo-router';
 
 export default function index() {
-    const {user} = useContext(UserContext)
-
-    if (!user) {
-        return <Redirect href= {"/"}></Redirect>
-    }
 
   return (
     <View>
-        <Text>{user && user.email}</Text>
+      <Link href={'/profile/camera'}>Camera</Link>
     </View>
   )
 }
